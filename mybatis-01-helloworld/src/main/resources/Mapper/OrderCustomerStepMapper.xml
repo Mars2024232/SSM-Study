@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mybatis01helloworld.mapper.OrderCustomerStepMapper">
+
+    <select id="getCustomerById" resultType="com.example.mybatis01helloworld.bean.Customer">
+        select * from t_customer where id = #{id}
+    </select>
+    <select id="getOrdersByCustomerId" resultType="com.example.mybatis01helloworld.bean.Order">
+        select * from t_order where customer_id = #{id}
+    </select>
+
+
+
+    <resultMap id="customerOrdeRM" type="com.example.mybatis01helloworld.bean.Customer">
+           <id property="id" column="id"/>
+            <result property="customerName" column="customer_name"/>
+            <result property="phone" column="phone"/>
+        <collection property="orders" ofType="com.example.mybatis01helloworld.bean.Order"
+                    select="getOrdersByCustomerId"
+                    column="id">
+        </collection>
+
+            </resultMap>
+    <select id="getCustomerByIdAndStep" resultMap="customerOrdeRM" >
+        select * from t_customer where id = #{id}
+    </select>
+
+
+    <resultMap id="OrderCustomerRM" type="com.example.mybatis01helloworld.bean.Order">
+        <id column="id" property="id"/>
+        <result column="address" property="address"/>
+        <result column="customer_id" property="customerId"/>
+        <result column="amount" property="amount"/>
+        <!--customer属性关联一个对象-->
+        <association property="customer"
+        select="com.example.mybatis01helloworld.mapper.OrderCustomerStepMapper.getCustomerById"
+        column="customer_id"/>
+    </resultMap>
+    <select id="getOrderByCustomerIdAndStep" resultMap="OrderCustomerRM">
+        select * from t_order where id=#{id}
+    </select>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承自定义父工程 ssm-parent -->
+    <parent>
+        <groupId>com.example</groupId>
+        <artifactId>ssm-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>spring-02-aop</artifactId>
+    <name>spring-02-aop</name>
+    <description>spring-02-aop</description>
+
+    <dependencies>
+        <!-- 本模块特有:AOP 切面需要 AspectJ(版本由 Boot 统一管理) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aspectj</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

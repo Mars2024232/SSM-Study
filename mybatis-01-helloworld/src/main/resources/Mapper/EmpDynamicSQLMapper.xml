@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mybatis01helloworld.mapper.EmpDynamicSQLMapper">
+    <update id="updateEmp">
+        UPDATE t_emp
+        <set>
+        <if test="empName != null">
+            emp_name=#{empName},
+        </if>
+        <if test="empSalary != null">
+            emp_salary=#{empSalary},
+        </if>
+        <if test="age != null">
+            age=#{age},
+        </if>
+        </set>
+        where id=#{id}
+
+    </update>
+
+
+
+<!--    <select id="QueryEmpByEmpNameAndSalary" resultType="com.example.mybatis01helloworld.bean.Emp">
+        SELECT * FROM t_emp
+        <where>
+            <if test="name != null">
+                emp_name=#{name}
+            </if>
+            <if test="salary != null">
+                and emp_salary=#{salary}
+            </if>
+        </where>
+    </select>-->
+
+    <!--trim:给SQL前面加where,并去掉开头多余的and/or
+        <where>就是它的简化版:<trim prefix="where" prefixOverrides="AND |OR ">-->
+    <select id="QueryEmpByEmpNameAndSalary" resultType="com.example.mybatis01helloworld.bean.Emp">
+        SELECT * FROM t_emp
+        <trim prefix="where" prefixOverrides="and |or ">
+            <if test="name != null">
+                emp_name=#{name}
+            </if>
+            <if test="salary != null">
+                and emp_salary=#{salary}
+            </if>
+        </trim>
+    </select>
+
+    <!--
+    foreach:遍历list、map、set等集合类型
+    collection:指定要遍历的集合名
+    item:当前元素的变量名
+    separator:元素之间的分隔符
+    index:集合元素的索引
+    open/close:在整个循环结果前后加的符号
+    -->
+    <select id="getEmpByIdIn" resultType="com.example.mybatis01helloworld.bean.Emp">
+        select * from t_emp where id in
+        <if test="ids != null">
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+        </if>
+    </select>
+
+    <!--批量更新:每个emp拼一条update,用;分隔-->
+    <update id="updateEmps">
+        <foreach collection="emps" item="e" index="index" separator=";">
+            update t_emp
+            <set>
+                <if test="e.empName != null">
+                    emp_name=#{e.empName},
+                </if>
+                <if test="e.empSalary != null">
+                    emp_salary=#{e.empSalary},
+                </if>
+                <if test="e.age != null">
+                    age=#{e.age},
+                </if>
+            </set>
+            where id=#{e.id}
+        </foreach>
+    </update>
+</mapper>

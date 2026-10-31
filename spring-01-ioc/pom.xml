@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承自定义父工程 ssm-parent -->
+    <parent>
+        <groupId>com.example</groupId>
+        <artifactId>ssm-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>spring-01-ioc</artifactId>
+    <name>spring-01-ioc</name>
+    <description>spring-01-ioc</description>
+
+    <!-- 无特有依赖,公共依赖(spring-boot-starter / lombok / test)全部继承自父工程 -->
+
+</project>
