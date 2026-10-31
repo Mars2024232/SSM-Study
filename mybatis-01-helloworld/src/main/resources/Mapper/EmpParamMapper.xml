@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mybatis01helloworld.mapper.EmpParamMapper">
+    <insert id="addEmploy">
+        insert into t_emp(emp_name, age, emp_salary) values(#{empName}, #{age}, #{empSalary})
+    </insert>
+    <insert id="addEmploy2">
+        insert into t_emp(emp_name, age, emp_salary) values(#{empName}, #{age}, #{empSalary})
+    </insert>
+
+
+    <select id="getEmploy" resultType="com.example.mybatis01helloworld.bean.Emp">
+        select * from t_emp where id = #{abc}
+    </select>
+    <select id="getEmploy02" resultType="com.example.mybatis01helloworld.bean.Emp">
+        select * from t_emp where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+    <select id="getEmployByIdAndName" resultType="com.example.mybatis01helloworld.bean.Emp">
+        select * from t_emp where id = #{id} and emp_name = #{name}
+    </select>
+</mapper>
